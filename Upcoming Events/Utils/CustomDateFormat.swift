@@ -16,21 +16,22 @@ enum CustomDateFormat: String {
     case onlyHour12 = "h:mm a"
     case day = "EEEE d"
 
-    func getFormatter(locale: Locale) -> DateFormatter {
+    func getFormatter(locale: Locale, timeZone: TimeZone) -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = rawValue
         dateFormatter.locale = locale
+        dateFormatter.timeZone = timeZone
         return dateFormatter
     }
 
-    func date(from string: String, locale: Locale = Locale(identifier: "en_us_POSIX")) throws -> Date {
-        guard let date = getFormatter(locale: locale).date(from: string) else {
+    func date(from string: String, locale: Locale = Locale(identifier: "en_us_POSIX"), timeZone: TimeZone = .gmt) throws -> Date {
+        guard let date = getFormatter(locale: locale, timeZone: timeZone).date(from: string) else {
             throw CustomDateFormatterErrors.cantConvertStringToDate
         }
         return date
     }
 
-    func string(from date: Date, locale: Locale = Locale(identifier: "en_us_POSIX")) -> String {
-        getFormatter(locale: locale).string(from: date)
+    func string(from date: Date, locale: Locale = Locale(identifier: "en_us_POSIX"), timeZone: TimeZone = .gmt) -> String {
+        getFormatter(locale: locale, timeZone: timeZone).string(from: date)
     }
 }

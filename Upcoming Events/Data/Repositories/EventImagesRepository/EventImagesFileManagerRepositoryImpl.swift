@@ -23,7 +23,7 @@ final class EventImagesFileManagerRepositoryImpl: EventImagesRepository {
             let path = try makeDirectory(to: event)
             try fileManager.createDirectory(at: path, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            print(error.localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
 
@@ -45,7 +45,7 @@ final class EventImagesFileManagerRepositoryImpl: EventImagesRepository {
         guard let path = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw Errors.cantGetPathOfDocuments
         }
-        let relativePath = path.appendingPathComponent("images/\(event.title)/") // in this these case needs a persistand id to not coallition with another tasks
+        let relativePath = path.appendingPathComponent("images/\(event.title)/") // in this these case needs a persistand id to not coallition with another events
         return relativePath
     }
 }

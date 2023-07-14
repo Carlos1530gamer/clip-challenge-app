@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Equatable {
     let title: String
     let comments: String
     let startDate: Date
@@ -18,6 +18,13 @@ struct Event: Codable {
         case comments
         case startDate = "start"
         case endDate = "end"
+    }
+
+    public init(title: String, comments: String, startDate: Date, endDate: Date) {
+        self.title = title
+        self.comments = comments
+        self.startDate = startDate
+        self.endDate = endDate
     }
 
     init(from decoder: Decoder) throws {
