@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum CustomDateFormatterErrors: Error {
+    case cantConvertStringToDate
+}
+
 enum CustomDateFormat: String {
     case getEventFormat = "MMMM d, y h:mm a"
     case onlyHour12 = "h:mm a"
@@ -14,8 +18,19 @@ enum CustomDateFormat: String {
 
     func getFormatter(locale: Locale) -> DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = self.rawValue
+        dateFormatter.dateFormat = rawValue
         dateFormatter.locale = locale
         return dateFormatter
+    }
+
+    func date(from string: String, locale: Locale = Locale(identifier: "en_us_POSIX")) throws -> Date {
+        guard let date = getFormatter(locale: locale).date(from: string) else {
+            throw CustomDateFormatterErrors.cantConvertStringToDate
+        }
+        return date
+    }
+
+    func string(from date: Date, locale: Locale = Locale(identifier: "en_us_POSIX")) -> String {
+        getFormatter(locale: locale).string(from: date)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 protocol EventDetailsViewModelProtocol: EventDetailsViewInputProtocol {
     var router: EventDetailsRouterProtocol { get }
     var getImagesOfEventUseCase: GetImagesOfEventUseCase { get }
-    var saveImageUseCase: SaveImageUseCase { get }
+    var saveImageUseCase: SaveImageOfEventUseCase { get }
     var view: EventDetailsViewProtocol? { get set }
 
     func viewDidLoad() async
@@ -19,19 +19,26 @@ protocol EventDetailsViewModelProtocol: EventDetailsViewInputProtocol {
 }
 
 final class EventDetailsViewModel: EventDetailsViewModelProtocol {
+    // MARK: - Data Input to View
+
     var event: Event
     var imagesData: [Data] = []
+
+    // MARK: - Depency Injection
+
     var router: EventDetailsRouterProtocol
     var getImagesOfEventUseCase: GetImagesOfEventUseCase
-    var saveImageUseCase: SaveImageUseCase
+    var saveImageUseCase: SaveImageOfEventUseCase
     var view: EventDetailsViewProtocol?
 
     init(
+        view: EventDetailsViewProtocol? = nil,
         event: Event,
         router: EventDetailsRouterProtocol,
         getImagesOfEventUseCase: GetImagesOfEventUseCase,
-        saveImageUseCase: SaveImageUseCase)
+        saveImageUseCase: SaveImageOfEventUseCase)
     {
+        self.view = view
         self.event = event
         self.router = router
         self.getImagesOfEventUseCase = getImagesOfEventUseCase
@@ -43,13 +50,22 @@ final class EventDetailsViewModel: EventDetailsViewModelProtocol {
     }
 
     @MainActor
-    func getImages() async {
+    private func getImages() async {
         do {
             let images = try await getImagesOfEventUseCase.getImages()
             imagesData = images
             view?.reloadImages()
         } catch {
-            print(error.localizedDescription)
+            showError(subtitle: error.localizedDescription)
+        }
+    }
+
+    func savePhoto(data: Data) async {
+        do {
+            try await saveImageUseCase.saveImage(data: data, fileName: UUID().uuidString)
+            await getImages()
+        } catch {
+            showError(subtitle: error.localizedDescription)
         }
     }
 
@@ -57,13 +73,12 @@ final class EventDetailsViewModel: EventDetailsViewModelProtocol {
         router.showCamera(delegate: delegate)
     }
 
-    @MainActor
-    func savePhoto(data: Data) async {
-        do {
-            try await saveImageUseCase.saveImage(data: data, fileName: UUID().uuidString)
-            await getImages()
-        } catch {
-            print(error.localizedDescription)
-        }
+    func showError(title: String = "Unknow Error", subtitle: String) {
+        router.showError(title: title, subtitle: subtitle, acceptAction: { [weak self] in
+            let safetySelf = self
+            Task.detached { @MainActor in
+                await safetySelf?.getImages()
+            }
+        })
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 protocol HomeEventsRouterProtocol {
     var baseViewController: UIViewController? { set get }
     func showDetails(of event: Event)
+    func showError(title: String, subtitle: String, acceptAction: @escaping () -> Void)
 }
 
 final class HomeEventsRouter: HomeEventsRouterProtocol {
@@ -25,5 +26,13 @@ final class HomeEventsRouter: HomeEventsRouterProtocol {
     func showDetails(of event: Event) {
         let detailView = EventDetailsBuilder.build(event: event, navigation: navigation)
         navigation?.pushViewController(detailView, animated: true)
+    }
+
+    func showError(title: String, subtitle: String, acceptAction: @escaping () -> Void) {
+        let errorVC = GenericErrorViewController(title: title,
+                                                 subtitle: subtitle,
+                                                 acceptAction: acceptAction)
+        errorVC.modalPresentationStyle = .overFullScreen
+        navigation?.present(errorVC, animated: true)
     }
 }

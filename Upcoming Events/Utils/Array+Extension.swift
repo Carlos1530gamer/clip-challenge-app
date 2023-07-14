@@ -1,17 +1,11 @@
 //
-//  Date+Extension.swift
+//  Array+Extension.swift
 //  Upcoming Events
 //
 //  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
 //
 
 import Foundation
-
-extension Date {
-    func toFormatedString(format: CustomDateFormat, locale: Locale = Locale(identifier: "en_us_POSIX")) -> String {
-        format.getFormatter(locale: locale).string(from: self)
-    }
-}
 
 extension Array where Element == Event {
     mutating func toArrayGroupedBy(dateComponents: Set<Calendar.Component>) -> [[Element]] {

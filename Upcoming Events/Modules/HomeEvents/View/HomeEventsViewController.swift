@@ -5,7 +5,6 @@
 //  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
 //
 
-import Combine
 import UIKit
 
 protocol HomeEventsViewProtocol: AnyObject {
@@ -34,6 +33,11 @@ final class HomeEventsViewController: UIViewController {
         super.init(nibName: nil, bundle: .main)
     }
 
+    deinit {
+        task?.cancel() // To liberate memory
+        task = nil
+    }
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -47,7 +51,9 @@ final class HomeEventsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindData()
+        task = Task.detached {
+            await self.viewModel.viewLoaded()
+        }
     }
 
     private func setupUI() {
@@ -75,24 +81,17 @@ final class HomeEventsViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
-    private func bindData() {
-        task = Task.detached {
-            await self.viewModel.viewLoaded()
-        }
-    }
-
-    deinit {
-        task?.cancel()
-        task = nil
-    }
 }
+
+// MARK: - Handle Events of ViewModel
 
 extension HomeEventsViewController: HomeEventsViewProtocol {
     func reloadEvents() {
         tableView.reloadData()
     }
 }
+
+// MARK: - Delegate and Sourcing of Collection
 
 extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +103,8 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        input.groupedEvents[section].first?.startDate.toFormatedString(format: .day)
+        guard let event = input.groupedEvents[safe: section]?.first else { return nil }
+        return CustomDateFormat.day.string(from: event.startDate)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

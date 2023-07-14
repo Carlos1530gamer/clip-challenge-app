@@ -54,6 +54,7 @@ final class EventDetailsViewController: UIViewController {
 
     private let input: EventDetailsViewInputProtocol
     private let viewModel: EventDetailsViewModelProtocol
+    private var task: Task<Void, Error>?
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -66,6 +67,11 @@ final class EventDetailsViewController: UIViewController {
         super.init(nibName: nil, bundle: .main)
     }
 
+    deinit {
+        task?.cancel() // To liberate memory
+        task = nil
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigation()
@@ -73,19 +79,23 @@ final class EventDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         setupNavigation()
+        setupUI()
         setupLayout()
         setupCollectionView()
-        bindData()
-
-        Task.detached { @MainActor in
+        task = Task.detached {
             await self.viewModel.viewDidLoad()
         }
     }
 
-    private func bindData() {
-        dateLabel.text = input.event.startDate.toFormatedString(format: .day)
+    private func setupNavigation() {
+        navigationItem.title = input.event.title
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        dateLabel.text = CustomDateFormat.day.string(from: input.event.startDate)
         descriptionLabel.text = input.event.comments
     }
 
@@ -96,11 +106,6 @@ final class EventDetailsViewController: UIViewController {
             EventDetailsImageCollectionViewCell.self,
             forCellWithReuseIdentifier: EventDetailsImageCollectionViewCell.reuseIdentifier
         )
-    }
-
-    private func setupNavigation() {
-        navigationItem.title = input.event.title
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     private func setupLayout() {
@@ -151,7 +156,7 @@ extension EventDetailsViewController: CameraDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.editedImage] as? UIImage,
               let data = image.pngData() else { return }
-        Task.detached(operation: { @MainActor in await self.viewModel.savePhoto(data: data) })
+        Task.detached(operation: { await self.viewModel.savePhoto(data: data) })
         picker.dismiss(animated: true)
     }
 }

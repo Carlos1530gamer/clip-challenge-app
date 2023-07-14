@@ -14,7 +14,7 @@ final class GetEventsUseCaseImpl: GetEventsUseCaseProtocol {
         self.eventsRepo = eventsRepo
     }
 
-    func getEvents() throws -> [Event] {
+    func getEvents() async throws -> [Event] {
         try eventsRepo.getEvents()
     }
 }

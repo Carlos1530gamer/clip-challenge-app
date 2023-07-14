@@ -17,14 +17,18 @@ protocol HomeEventsViewModelProtocol: HomeEventsViewInput {
 }
 
 final class HomeEventsViewModel: HomeEventsViewModelProtocol {
-    var getEventsUseCase: GetEventsUseCaseProtocol
-    var router: HomeEventsRouterProtocol
-    weak var view: HomeEventsViewProtocol?
+    // MARK: - View Inputs
 
     var events: [Event] = []
     var groupedEvents: [[Event]] {
         events.toArrayGroupedBy(dateComponents: [.day])
     }
+
+    // MARK: - Dependency Injection
+
+    var getEventsUseCase: GetEventsUseCaseProtocol
+    var router: HomeEventsRouterProtocol
+    weak var view: HomeEventsViewProtocol?
 
     init(getEventsUseCase: GetEventsUseCaseProtocol, router: HomeEventsRouterProtocol) {
         self.getEventsUseCase = getEventsUseCase
@@ -32,20 +36,33 @@ final class HomeEventsViewModel: HomeEventsViewModelProtocol {
     }
 
     func viewLoaded() async {
+        await fetchEvents()
+    }
+
+    @MainActor
+    private func fetchEvents() async {
         do {
             try await getEvents()
+            view?.reloadEvents()
         } catch {
-            print("Error: ", error.localizedDescription)
+            showError(subtitle: error.localizedDescription)
         }
+    }
+
+    private func getEvents() async throws {
+        events = try await getEventsUseCase.getEvents()
     }
 
     func select(event: Event) {
         router.showDetails(of: event)
     }
 
-    @MainActor
-    private func getEvents() async throws {
-        events = try getEventsUseCase.getEvents()
-        view?.reloadEvents()
+    func showError(title: String = "Unknow Error", subtitle: String) {
+        router.showError(title: title, subtitle: subtitle, acceptAction: { [weak self] in
+            let safeSelf = self
+            Task.detached {
+                await safeSelf?.fetchEvents()
+            }
+        })
     }
 }

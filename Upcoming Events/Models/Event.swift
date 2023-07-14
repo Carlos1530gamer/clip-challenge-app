@@ -26,7 +26,8 @@ struct Event: Codable {
         self.comments = try container.decode(String.self, forKey: .comments)
         let startRawData = try container.decode(String.self, forKey: .startDate)
         let endRawData = try container.decode(String.self, forKey: .endDate)
-        self.startDate = try startRawData.toDate(format: .getEventFormat)
-        self.endDate = try endRawData.toDate(format: .getEventFormat)
+        let formatter = CustomDateFormat.getEventFormat
+        self.startDate = try formatter.date(from: startRawData)
+        self.endDate = try formatter.date(from: endRawData)
     }
 }

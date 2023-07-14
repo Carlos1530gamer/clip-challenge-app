@@ -11,7 +11,7 @@ enum EventDetailsBuilder {
     static func build(event: Event, navigation: UINavigationController?) -> EventDetailsViewController {
         let router = EventDetailsRouter(navigation: navigation)
         let imagesFileManagerRepository = EventImagesFileManagerRepositoryImpl(event: event)
-        let saveImageUseCase = SaveImageUseCaseImpl(repository: imagesFileManagerRepository)
+        let saveImageUseCase = SaveImageOfEventUseCaseImpl(repository: imagesFileManagerRepository)
         let getImagesOfEventUseCase = GetImagesOfEventUseCaseImpl(repository: imagesFileManagerRepository)
         let viewModel = EventDetailsViewModel(event: event,
                                               router: router,

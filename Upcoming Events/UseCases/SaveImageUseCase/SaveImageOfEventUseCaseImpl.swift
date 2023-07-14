@@ -1,5 +1,5 @@
 //
-//  SaveImageUseCaseImpl.swift
+//  SaveImageOfEventUseCaseImpl.swift
 //  Upcoming Events
 //
 //  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SaveImageUseCaseImpl: SaveImageUseCase {
+final class SaveImageOfEventUseCaseImpl: SaveImageOfEventUseCase {
     private let repository: EventImagesRepository
 
     init(repository: EventImagesRepository) {

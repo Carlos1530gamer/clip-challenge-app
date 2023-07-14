@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GetEventsUseCaseProtocol {
-    func getEvents() throws -> [Event]
+    func getEvents() async throws -> [Event]
 }
