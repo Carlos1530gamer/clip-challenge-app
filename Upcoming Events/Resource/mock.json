@@ -1,0 +1,116 @@
+[
+    {
+        "title": "Evening Picnic",
+        "start": "November 10, 2018 6:00 PM",
+        "end": "November 10, 2018 7:00 PM",
+        "comments":"Another way to have a funny time" 
+    },
+    {
+        "title": "Nap Break",
+        "start": "November 8, 2018 12:30 PM",
+        "end": "November 8, 2018 1:30 PM",
+        "comments":"Ohh, sounds good" 
+    },
+    {
+        "title": "Football Game",
+        "start": "November 3, 2018 6:00 PM",
+        "end": "November 3, 2018 10:00 PM",
+        "comments":"Let's gooo" 
+    },
+    {
+        "title": "Evening Cookout with Friends",
+        "start": "November 6, 2018 5:00 PM",
+        "end": "November 6, 2018 10:00 PM",
+        "comments":"Uff again with friends it's the best"
+    },
+    {
+        "title": "Roller Derby",
+        "start": "November 7, 2018 12:00 PM",
+        "end": "November 7, 2018 2:30 PM",
+        "comments":"Let's do it" 
+    },
+    {
+        "title": "Basketball Game",
+        "start": "November 8, 2018 7:30 PM",
+        "end": "November 8, 2018 10:30 PM",
+        "comments":"See other people do exercise is better that I do" 
+    },
+    {
+        "title": "Local Pub with Friends",
+        "start": "November 1, 2018 7:30 PM",
+        "end": "November 1, 2018 11:00 PM",
+        "comments":"Alcohol always is need it je je je" 
+    },
+    {
+        "title": "Dentist Appointment",
+        "start": "November 10, 2018 1:45 PM",
+        "end": "November 10, 2018 2:30 PM",
+        "comments":"Ohh gosh I really needs to go?" 
+    },
+    {
+        "title": "Free Donuts",
+        "start": "November 9, 2018 3:00 PM",
+        "end": "November 9, 2018 4:00 PM",
+        "comments":"Free is the best food in the world" 
+    },
+    {
+        "title": "TV Show Marathon",
+        "start": "November 9, 2018 4:30 PM",
+        "end": "November 9, 2018 9:00 PM",
+        "comments":"I need more exercise" 
+    },
+    {
+        "title": "Lunch with Friends",
+        "start": "November 8, 2018 11:30 AM",
+        "end": "November 8, 2018 1:00 PM",
+        "comments":"Time to be so happy" 
+    },
+    {
+        "title": "SF Coffee Festival",
+        "start": "November 6, 2018 6:00 PM",
+        "end": "November 6, 2018 9:00 PM",
+        "comments":"I hope to go to this festival" 
+    },
+    {
+        "title": "Beer with Friends",
+        "start": "November 9, 2018 8:00 PM",
+        "end": "November 9, 2018 9:30 PM",
+        "comments":"Alcohol always is need it je je je" 
+    },
+    {
+        "title": "Yoga",
+        "start": "November 1, 2018 6:00 PM",
+        "end": "November 1, 2018 7:30 PM",
+        "comments":"So relaxing" 
+    },
+    {
+        "title": "Rock Concert",
+        "start": "November 7, 2018 6:30 PM",
+        "end": "November 7, 2018 11:00 PM",
+        "comments":"So exacted I new concert of Arcade Fire" 
+    },
+    {
+        "title": "Lunch Meeting",
+        "start": "November 9, 2018 12:30 PM",
+        "end": "November 9, 2018 2:30 PM",
+        "comments":"Luch with John" 
+    },
+    {
+        "title": "Bicycling with Friends",
+        "start": "November 1, 2018 6:00 AM",
+        "end": "November 1, 2018 9:30 AM",
+        "comments":"I need more exercise" 
+    },
+    {
+        "title": "Birthday Party",
+        "start": "November 10, 2018 12:30 PM",
+        "end": "November 10, 2018 8:30 PM",
+        "comments":"Ujuuu a party Bithday" 
+    },
+    {
+        "title": "Football Tailgate with John",
+        "start": "November 3, 2018 6:00 PM",
+        "end": "November 3, 2018 10:00 PM",
+        "comments":"Something about event with John" 
+    }
+]
