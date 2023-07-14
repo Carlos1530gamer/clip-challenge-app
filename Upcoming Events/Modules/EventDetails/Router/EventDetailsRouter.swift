@@ -24,7 +24,11 @@ final class EventDetailsRouter: EventDetailsRouterProtocol {
     func showCamera(delegate: CameraDelegate) {
         let picker = UIImagePickerController()
         picker.modalPresentationStyle = .fullScreen
-        picker.sourceType = .camera
+        #if targetEnvironment(simulator) // Code to show library when is simulator or camera in real device
+            picker.sourceType = .photoLibrary
+        #else
+            picker.sourceType = .camera
+        #endif
         picker.allowsEditing = true
         picker.delegate = delegate
         navigation?.present(picker, animated: true)
