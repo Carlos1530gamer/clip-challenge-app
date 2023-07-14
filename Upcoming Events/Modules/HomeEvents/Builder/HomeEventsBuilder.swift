@@ -16,6 +16,7 @@ enum HomeEventsBuilder {
                                             router: router)
         let viewController = HomeEventsViewController(viewModel: viewModel)
         router.baseViewController = viewController
+        viewModel.view = viewController
         return viewController
     }
 }

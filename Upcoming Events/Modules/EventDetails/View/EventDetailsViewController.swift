@@ -13,7 +13,7 @@ protocol EventDetailsViewProtocol {
 
 protocol EventDetailsViewInputProtocol {
     var event: Event { get }
-    var images: [UIImage] { get }
+    var imagesData: [Data] { get }
 }
 
 final class EventDetailsViewController: UIViewController {
@@ -38,7 +38,6 @@ final class EventDetailsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Take Picture", for: .normal)
-        button.addTarget(self, action: #selector(showCamera), for: .touchUpInside)
         return button
     }()
 
@@ -110,8 +109,10 @@ final class EventDetailsViewController: UIViewController {
         view.addSubview(takePhotoButton)
         view.addSubview(collectionView)
 
-        // Configure label constraints
+        // Handle interactions
+        takePhotoButton.addTarget(self, action: #selector(showCamera), for: .touchUpInside)
 
+        // Configure label constraints
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -157,13 +158,13 @@ extension EventDetailsViewController: CameraDelegate {
 
 extension EventDetailsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        input.images.count
+        input.imagesData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: EventDetailsImageCollectionViewCell.reuseIdentifier, for: indexPath) as? EventDetailsImageCollectionViewCell,
-            let data = input.images[safe: indexPath.row]
+            let data = input.imagesData[safe: indexPath.row]
         else {
             return UICollectionViewCell()
         }

@@ -34,7 +34,7 @@ final class EventTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        cardView.cornerRadius = cardView.frame.height / 2
+        cardView.cornerRadius = cardView.frame.height / 8
     }
 
     private func setupLayout() {

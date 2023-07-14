@@ -5,12 +5,12 @@
 //  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
 //
 
-import Combine
 import Foundation
 
 protocol HomeEventsViewModelProtocol: HomeEventsViewInput {
     var getEventsUseCase: GetEventsUseCaseProtocol { get }
     var router: HomeEventsRouterProtocol { get }
+    var view: HomeEventsViewProtocol? { get }
 
     func viewLoaded() async
     func select(event: Event)
@@ -19,6 +19,7 @@ protocol HomeEventsViewModelProtocol: HomeEventsViewInput {
 final class HomeEventsViewModel: HomeEventsViewModelProtocol {
     var getEventsUseCase: GetEventsUseCaseProtocol
     var router: HomeEventsRouterProtocol
+    weak var view: HomeEventsViewProtocol?
 
     var events: [Event] = []
     var groupedEvents: [[Event]] {
@@ -42,7 +43,9 @@ final class HomeEventsViewModel: HomeEventsViewModelProtocol {
         router.showDetails(of: event)
     }
 
+    @MainActor
     private func getEvents() async throws {
         events = try getEventsUseCase.getEvents()
+        view?.reloadEvents()
     }
 }

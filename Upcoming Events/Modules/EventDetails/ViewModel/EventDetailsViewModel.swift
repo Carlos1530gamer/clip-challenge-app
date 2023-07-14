@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol EventDetailsViewModelProtocol: EventDetailsViewInputProtocol {
     var router: EventDetailsRouterProtocol { get }
@@ -21,7 +20,7 @@ protocol EventDetailsViewModelProtocol: EventDetailsViewInputProtocol {
 
 final class EventDetailsViewModel: EventDetailsViewModelProtocol {
     var event: Event
-    var images: [UIImage] = []
+    var imagesData: [Data] = []
     var router: EventDetailsRouterProtocol
     var getImagesOfEventUseCase: GetImagesOfEventUseCase
     var saveImageUseCase: SaveImageUseCase
@@ -47,7 +46,7 @@ final class EventDetailsViewModel: EventDetailsViewModelProtocol {
     func getImages() async {
         do {
             let images = try await getImagesOfEventUseCase.getImages()
-            self.images = images
+            imagesData = images
             view?.reloadImages()
         } catch {
             print(error.localizedDescription)

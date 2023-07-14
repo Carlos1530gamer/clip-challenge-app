@@ -37,7 +37,7 @@
 		2179F05D2A61387B00A06653 /* GetImagesOfEventUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F05C2A61387B00A06653 /* GetImagesOfEventUseCaseImpl.swift */; };
 		2179F0602A6139DE00A06653 /* SaveImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F05F2A6139DE00A06653 /* SaveImageUseCase.swift */; };
 		2179F0622A6139F400A06653 /* SaveImageUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0612A6139F400A06653 /* SaveImageUseCaseImpl.swift */; };
-		2179F0642A613A4300A06653 /* EventImagesFileManagerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0632A613A4300A06653 /* EventImagesFileManagerRepository.swift */; };
+		2179F0642A613A4300A06653 /* EventImagesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0632A613A4300A06653 /* EventImagesRepository.swift */; };
 		2179F0672A613ABF00A06653 /* EventImagesFileManagerRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0662A613ABF00A06653 /* EventImagesFileManagerRepositoryImpl.swift */; };
 		2179F06A2A61512A00A06653 /* EventDetailsImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0692A61512A00A06653 /* EventDetailsImageCollectionViewCell.swift */; };
 		21A98ACC2A612A3000D221F9 /* EventDetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A98ACB2A612A3000D221F9 /* EventDetailsBuilder.swift */; };
@@ -76,7 +76,7 @@
 		2179F05C2A61387B00A06653 /* GetImagesOfEventUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImagesOfEventUseCaseImpl.swift; sourceTree = "<group>"; };
 		2179F05F2A6139DE00A06653 /* SaveImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveImageUseCase.swift; sourceTree = "<group>"; };
 		2179F0612A6139F400A06653 /* SaveImageUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveImageUseCaseImpl.swift; sourceTree = "<group>"; };
-		2179F0632A613A4300A06653 /* EventImagesFileManagerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImagesFileManagerRepository.swift; sourceTree = "<group>"; };
+		2179F0632A613A4300A06653 /* EventImagesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImagesRepository.swift; sourceTree = "<group>"; };
 		2179F0662A613ABF00A06653 /* EventImagesFileManagerRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImagesFileManagerRepositoryImpl.swift; sourceTree = "<group>"; };
 		2179F0692A61512A00A06653 /* EventDetailsImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		21A98ACB2A612A3000D221F9 /* EventDetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsBuilder.swift; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 		216B10962A60E1C30005BD33 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				2179F0652A613A5100A06653 /* EventImagesFileManagerRepository */,
+				2179F0652A613A5100A06653 /* EventImagesRepository */,
 				216B10972A60E1D40005BD33 /* EventsRepository */,
 			);
 			path = Repositories;
@@ -342,13 +342,13 @@
 			path = SaveImageUseCase;
 			sourceTree = "<group>";
 		};
-		2179F0652A613A5100A06653 /* EventImagesFileManagerRepository */ = {
+		2179F0652A613A5100A06653 /* EventImagesRepository */ = {
 			isa = PBXGroup;
 			children = (
-				2179F0632A613A4300A06653 /* EventImagesFileManagerRepository.swift */,
+				2179F0632A613A4300A06653 /* EventImagesRepository.swift */,
 				2179F0662A613ABF00A06653 /* EventImagesFileManagerRepositoryImpl.swift */,
 			);
-			path = EventImagesFileManagerRepository;
+			path = EventImagesRepository;
 			sourceTree = "<group>";
 		};
 		2179F0682A61511000A06653 /* Cells */ = {
@@ -459,7 +459,7 @@
 				2179F0542A612B5700A06653 /* EventDetailsViewController.swift in Sources */,
 				2179F06A2A61512A00A06653 /* EventDetailsImageCollectionViewCell.swift in Sources */,
 				2179F05D2A61387B00A06653 /* GetImagesOfEventUseCaseImpl.swift in Sources */,
-				2179F0642A613A4300A06653 /* EventImagesFileManagerRepository.swift in Sources */,
+				2179F0642A613A4300A06653 /* EventImagesRepository.swift in Sources */,
 				216B10B92A6107B30005BD33 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

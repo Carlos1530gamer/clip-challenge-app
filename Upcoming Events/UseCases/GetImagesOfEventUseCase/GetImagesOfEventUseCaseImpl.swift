@@ -6,16 +6,15 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
 final class GetImagesOfEventUseCaseImpl: GetImagesOfEventUseCase {
-    private let repository: EventImagesFileManagerRepository
+    private let repository: EventImagesRepository
 
-    init(repository: EventImagesFileManagerRepository) {
+    init(repository: EventImagesRepository) {
         self.repository = repository
     }
 
-    func getImages() async throws -> [UIImage] {
+    func getImages() async throws -> [Data] {
         try repository.getImages()
     }
 }

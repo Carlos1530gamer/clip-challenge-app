@@ -8,9 +8,9 @@
 import Foundation
 
 final class SaveImageUseCaseImpl: SaveImageUseCase {
-    private let repository: EventImagesFileManagerRepository
+    private let repository: EventImagesRepository
 
-    init(repository: EventImagesFileManagerRepository) {
+    init(repository: EventImagesRepository) {
         self.repository = repository
     }
 

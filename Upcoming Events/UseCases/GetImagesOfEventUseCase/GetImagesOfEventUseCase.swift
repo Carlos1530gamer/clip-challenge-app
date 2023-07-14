@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
 protocol GetImagesOfEventUseCase {
-    func getImages() async throws -> [UIImage]
+    func getImages() async throws -> [Data]
 }

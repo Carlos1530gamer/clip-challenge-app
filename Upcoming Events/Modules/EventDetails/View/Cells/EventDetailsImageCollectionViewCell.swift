@@ -32,8 +32,8 @@ final class EventDetailsImageCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(with image: UIImage) {
-        imageView.image = image
+    func configure(with imageData: Data) {
+        imageView.image = UIImage(data: imageData)
         imageView.layer.cornerRadius = bounds.height / 10
     }
 }

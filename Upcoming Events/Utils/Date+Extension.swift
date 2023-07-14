@@ -31,20 +31,4 @@ extension Array where Element == Event {
 
         return final
     }
-
-    func groupedBy(dateComponents: Set<Calendar.Component>) -> [Date: [Element]] {
-        let inital: [Date: [Element]] = [:]
-
-        let groupedByDateComponents = reduce(into: inital) { partialResult, element in
-            let components = Calendar.current.dateComponents(dateComponents, from: element.startDate)
-            let date = Calendar.current.date(from: components)
-
-            if let date = date {
-                let existing = partialResult[date] ?? []
-                partialResult[date] = existing + [element]
-            }
-        }
-
-        return groupedByDateComponents
-    }
 }

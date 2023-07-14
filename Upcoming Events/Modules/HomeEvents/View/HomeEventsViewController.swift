@@ -8,6 +8,10 @@
 import Combine
 import UIKit
 
+protocol HomeEventsViewProtocol: AnyObject {
+    func reloadEvents()
+}
+
 protocol HomeEventsViewInput {
     var events: [Event] { get }
     var groupedEvents: [[Event]] { get }
@@ -73,15 +77,20 @@ final class HomeEventsViewController: UIViewController {
     }
 
     private func bindData() {
-        task = Task.detached { @MainActor in
+        task = Task.detached {
             await self.viewModel.viewLoaded()
-            self.tableView.reloadData()
         }
     }
 
     deinit {
         task?.cancel()
         task = nil
+    }
+}
+
+extension HomeEventsViewController: HomeEventsViewProtocol {
+    func reloadEvents() {
+        tableView.reloadData()
     }
 }
 
@@ -116,6 +125,6 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        60
+        80
     }
 }

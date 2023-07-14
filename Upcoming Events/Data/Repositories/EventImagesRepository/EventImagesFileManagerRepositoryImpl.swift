@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import UIKit.UIImage
 
-final class EventImagesFileManagerRepositoryImpl: EventImagesFileManagerRepository {
+final class EventImagesFileManagerRepositoryImpl: EventImagesRepository {
     private typealias Errors = EventImagesFileManagerRepositoryErrors
     private let fileManager: FileManager
     private let event: Event
@@ -34,11 +33,11 @@ final class EventImagesFileManagerRepositoryImpl: EventImagesFileManagerReposito
         try data.write(to: fileUrl)
     }
 
-    func getImages() throws -> [UIImage] {
+    func getImages() throws -> [Data] {
         let path = try makeDirectory(to: event)
         let items = try fileManager.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
         return items.compactMap {
-            UIImage(contentsOfFile: $0.relativePath)
+            try? Data(contentsOf: $0)
         }
     }
 
@@ -46,7 +45,7 @@ final class EventImagesFileManagerRepositoryImpl: EventImagesFileManagerReposito
         guard let path = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw Errors.cantGetPathOfDocuments
         }
-        let relativePath = path.appendingPathComponent("images/\(event.title)/")
+        let relativePath = path.appendingPathComponent("images/\(event.title)/") // in this these case needs a persistand id to not coallition with another tasks
         return relativePath
     }
 }
