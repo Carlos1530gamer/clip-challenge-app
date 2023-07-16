@@ -15,6 +15,7 @@ enum CustomDateFormat: String {
     case getEventFormat = "MMMM d, y h:mm a"
     case onlyHour12 = "h:mm a"
     case day = "EEEE d"
+    case dayMonth = "EEEE d, MMMM"
 
     func getFormatter(locale: Locale, timeZone: TimeZone) -> DateFormatter {
         let dateFormatter = DateFormatter()

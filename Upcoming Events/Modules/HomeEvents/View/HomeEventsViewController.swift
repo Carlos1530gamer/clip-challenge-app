@@ -104,7 +104,7 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let section = input.groupedEvents[safe: section] else { return nil }
-        return CustomDateFormat.day.string(from: section.dayDate)
+        return CustomDateFormat.dayMonth.string(from: section.dayDate)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
