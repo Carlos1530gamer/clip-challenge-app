@@ -13,7 +13,7 @@ protocol HomeEventsViewProtocol: AnyObject {
 
 protocol HomeEventsViewInput {
     var events: [Event] { get }
-    var groupedEvents: [[Event]] { get }
+    var groupedEvents: [EventSection] { get }
 }
 
 final class HomeEventsViewController: UIViewController {
@@ -99,18 +99,18 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        input.groupedEvents[section].count
+        input.groupedEvents[safe: section]?.events.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let event = input.groupedEvents[safe: section]?.first else { return nil }
-        return CustomDateFormat.day.string(from: event.startDate)
+        guard let section = input.groupedEvents[safe: section] else { return nil }
+        return CustomDateFormat.day.string(from: section.dayDate)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.reuseIdentifier,
                                                        for: indexPath) as? EventTableViewCell,
-            let event = input.groupedEvents[safe: indexPath.section]?[safe: indexPath.row]
+            let event = input.groupedEvents[safe: indexPath.section]?.events[safe: indexPath.row]
         else {
             return UITableViewCell()
         }
@@ -120,8 +120,8 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let event = input.groupedEvents[safe: indexPath.section]?[safe: indexPath.row] else { return }
-        viewModel.select(event: event)
+        guard let eventWithConflicts = input.groupedEvents[safe: indexPath.section]?.events[safe: indexPath.row] else { return }
+        viewModel.select(event: eventWithConflicts.event)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

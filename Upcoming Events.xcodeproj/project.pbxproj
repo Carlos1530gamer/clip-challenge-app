@@ -50,6 +50,7 @@
 		2179F0A12A61FF0B00A06653 /* SaveImageOfEventUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0A02A61FF0B00A06653 /* SaveImageOfEventUseCaseTests.swift */; };
 		2179F0A62A61FFF200A06653 /* EventImagesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0A52A61FFF200A06653 /* EventImagesRepositoryMock.swift */; };
 		2179F0AA2A6202A700A06653 /* GetImagesOfEventUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0A92A6202A700A06653 /* GetImagesOfEventUseCaseTests.swift */; };
+		2179F0AD2A62224E00A06653 /* EventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179F0AC2A62224D00A06653 /* EventSection.swift */; };
 		21A98ACC2A612A3000D221F9 /* EventDetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A98ACB2A612A3000D221F9 /* EventDetailsBuilder.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		2179F0A02A61FF0B00A06653 /* SaveImageOfEventUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveImageOfEventUseCaseTests.swift; sourceTree = "<group>"; };
 		2179F0A52A61FFF200A06653 /* EventImagesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImagesRepositoryMock.swift; sourceTree = "<group>"; };
 		2179F0A92A6202A700A06653 /* GetImagesOfEventUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImagesOfEventUseCaseTests.swift; sourceTree = "<group>"; };
+		2179F0AC2A62224D00A06653 /* EventSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSection.swift; sourceTree = "<group>"; };
 		21A98ACB2A612A3000D221F9 /* EventDetailsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				216B10942A60E1490005BD33 /* Event.swift */,
+				2179F0AC2A62224D00A06653 /* EventSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				2179F0712A61CC3F00A06653 /* GenericErrorView.swift in Sources */,
 				216B10952A60E1490005BD33 /* Event.swift in Sources */,
 				216B10992A60E1EC0005BD33 /* EventsRepository.swift in Sources */,
+				2179F0AD2A62224E00A06653 /* EventSection.swift in Sources */,
 				216B10A92A60EB7F0005BD33 /* Array+Extension.swift in Sources */,
 				216B109C2A60E3750005BD33 /* EventsRepositoryLocalImpl.swift in Sources */,
 				2179F05B2A61387400A06653 /* GetImagesOfEventUseCase.swift in Sources */,

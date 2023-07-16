@@ -23,6 +23,15 @@ final class EventTableViewCell: UITableViewCell {
         return view
     }()
 
+    private var timeRangeLabel: UILabel = {
+        let view = UILabel(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textAlignment = .right
+        view.numberOfLines = 1
+        view.font = .italicSystemFont(ofSize: 12)
+        return view
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -40,6 +49,7 @@ final class EventTableViewCell: UITableViewCell {
     private func setupLayout() {
         addSubview(cardView)
         cardView.addSubview(titleLabel)
+        cardView.addSubview(timeRangeLabel)
 
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -54,9 +64,20 @@ final class EventTableViewCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
         ])
+
+        NSLayoutConstraint.activate([
+            timeRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: cardView.topAnchor),
+            timeRangeLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -6),
+            timeRangeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.leadingAnchor),
+            timeRangeLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -6),
+        ])
     }
 
-    func configure(with event: Event) {
-        titleLabel.text = event.title
+    func configure(with event: EventWithConflicts) {
+        let dateFormatter = CustomDateFormat.onlyHour12
+        titleLabel.text = event.event.title
+        timeRangeLabel.text = String(format: "%@ - %@",
+                                     dateFormatter.string(from: event.event.startDate),
+                                     dateFormatter.string(from: event.event.endDate))
     }
 }

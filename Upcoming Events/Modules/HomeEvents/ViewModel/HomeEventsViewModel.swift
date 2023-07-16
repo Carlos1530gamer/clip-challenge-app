@@ -20,8 +20,8 @@ final class HomeEventsViewModel: HomeEventsViewModelProtocol {
     // MARK: - View Inputs
 
     var events: [Event] = []
-    var groupedEvents: [[Event]] {
-        events.toArrayGroupedBy(dateComponents: [.day])
+    var groupedEvents: [EventSection] {
+        events.toArrayGouped(by: [.day, .month, .year])
     }
 
     // MARK: - Dependency Injection
