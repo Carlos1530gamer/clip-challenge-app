@@ -2,14 +2,14 @@
 //  EventsRepositoryLocal.swift
 //  Upcoming EventsTests
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 @testable import Upcoming_Events
 import XCTest
 
 final class EventsRepositoryLocal: XCTestCase {
-    var sut: EventsRepositoryLocalImpl!
+    private var sut: EventsRepositoryLocalImpl!
 
     func test_retriveLocalData() throws {
         // Given

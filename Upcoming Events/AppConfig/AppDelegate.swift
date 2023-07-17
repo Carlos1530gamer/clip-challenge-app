@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import UIKit

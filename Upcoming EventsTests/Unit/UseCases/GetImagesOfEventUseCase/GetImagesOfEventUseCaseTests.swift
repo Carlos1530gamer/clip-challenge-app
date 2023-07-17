@@ -2,15 +2,15 @@
 //  GetImagesOfEventUseCaseTests.swift
 //  Upcoming EventsTests
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 @testable import Upcoming_Events
 import XCTest
 
 final class GetImagesOfEventUseCaseTests: XCTestCase {
-    var sut: GetImagesOfEventUseCase!
-    var repository: EventImagesRepositoryMock!
+    private var sut: GetImagesOfEventUseCase!
+    private var repository: EventImagesRepositoryMock!
 
     override func setUpWithError() throws {
         try super.setUpWithError()

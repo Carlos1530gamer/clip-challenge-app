@@ -1,5 +1,5 @@
 //
-//  EventImagesRepositoryMock.swift
+//  EventImagesRepositoryFailsMock.swift
 //  Upcoming EventsTests
 //
 //  Created by Carlos Daniel Hernandez Chauteco.
@@ -8,14 +8,12 @@
 import Foundation
 @testable import Upcoming_Events
 
-final class EventImagesRepositoryMock: EventImagesRepository {
-    var savedImages: Set<Data> = []
-
+final class EventImagesRepositoryFailsMock: EventImagesRepository {
     func saveImage(data: Data, fileName: String) throws {
-        savedImages.insert(data)
+        throw NSError(domain: "test", code: 0, userInfo: nil)
     }
 
     func getImages() throws -> [Data] {
-        savedImages.map { $0 }
+        throw NSError(domain: "test", code: 0, userInfo: nil)
     }
 }

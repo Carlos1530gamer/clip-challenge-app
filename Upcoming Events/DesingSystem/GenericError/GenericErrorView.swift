@@ -2,7 +2,7 @@
 //  GenericErrorView.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import SwiftUI

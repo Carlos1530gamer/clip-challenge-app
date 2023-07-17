@@ -2,7 +2,7 @@
 //  EventDetailsViewController.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import UIKit
@@ -41,7 +41,7 @@ final class EventDetailsViewController: UIViewController {
         return button
     }()
 
-    let collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16

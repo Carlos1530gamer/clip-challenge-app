@@ -2,7 +2,7 @@
 //  EventTableViewCell.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import UIKit
@@ -16,19 +16,40 @@ final class EventTableViewCell: UITableViewCell {
         return view
     }()
 
-    private var cardView: CardView = {
+    private let cardView: CardView = {
         let view = CardView()
         view.backgroundColor = .generateRandomPastelColor()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private var timeRangeLabel: UILabel = {
+    private let stackView: UIStackView = {
+        let view = UIStackView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.distribution = .fillProportionally
+        return view
+    }()
+
+    private let eventView: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let timeRangeLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textAlignment = .right
         view.numberOfLines = 1
         view.font = .italicSystemFont(ofSize: 12)
+        return view
+    }()
+
+    private lazy var conflictView: EventTableViewCellConflictView = {
+        let view = EventTableViewCellConflictView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
         return view
     }()
 
@@ -48,8 +69,11 @@ final class EventTableViewCell: UITableViewCell {
 
     private func setupLayout() {
         addSubview(cardView)
-        cardView.addSubview(titleLabel)
-        cardView.addSubview(timeRangeLabel)
+        cardView.addSubview(stackView)
+        eventView.addSubview(titleLabel)
+        eventView.addSubview(timeRangeLabel)
+        stackView.addArrangedSubview(eventView)
+        stackView.addArrangedSubview(conflictView)
 
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -59,25 +83,40 @@ final class EventTableViewCell: UITableViewCell {
         ])
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: cardView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
         ])
 
         NSLayoutConstraint.activate([
-            timeRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: cardView.topAnchor),
-            timeRangeLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -6),
-            timeRangeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.leadingAnchor),
-            timeRangeLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -6),
+            titleLabel.topAnchor.constraint(equalTo: eventView.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: eventView.bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: eventView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: eventView.trailingAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 60),
+        ])
+
+        NSLayoutConstraint.activate([
+            timeRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: eventView.topAnchor),
+            timeRangeLabel.bottomAnchor.constraint(equalTo: eventView.bottomAnchor, constant: -6),
+            timeRangeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: eventView.leadingAnchor),
+            timeRangeLabel.trailingAnchor.constraint(equalTo: eventView.trailingAnchor, constant: -6),
         ])
     }
 
-    func configure(with event: EventWithConflicts) {
+    func configure(with event: EventWithConflict) {
         let dateFormatter = CustomDateFormat.onlyHour12
         titleLabel.text = event.event.title
         timeRangeLabel.text = String(format: "%@ - %@",
                                      dateFormatter.string(from: event.event.startDate),
                                      dateFormatter.string(from: event.event.endDate))
+
+        if let conlict = event.conflictEvent {
+            conflictView.isHidden = false
+            conflictView.configure(with: conlict)
+        } else {
+            conflictView.isHidden = true
+        }
     }
 }

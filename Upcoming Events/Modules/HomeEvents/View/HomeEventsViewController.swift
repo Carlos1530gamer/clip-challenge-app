@@ -2,7 +2,7 @@
 //  HomeEventsViewController.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import UIKit
@@ -12,7 +12,6 @@ protocol HomeEventsViewProtocol: AnyObject {
 }
 
 protocol HomeEventsViewInput {
-    var events: [Event] { get }
     var groupedEvents: [EventSection] { get }
 }
 
@@ -21,7 +20,7 @@ final class HomeEventsViewController: UIViewController {
     private let viewModel: HomeEventsViewModelProtocol
     private var task: Task<Void, Error>?
 
-    private var tableView: UITableView = {
+    private let tableView: UITableView = {
         let view = UITableView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -72,6 +71,8 @@ final class HomeEventsViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.reuseIdentifier)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
 
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -122,9 +123,5 @@ extension HomeEventsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let eventWithConflicts = input.groupedEvents[safe: indexPath.section]?.events[safe: indexPath.row] else { return }
         viewModel.select(event: eventWithConflicts.event)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
     }
 }

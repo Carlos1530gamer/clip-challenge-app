@@ -2,13 +2,14 @@
 //  HomeEventsViewModel.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 13/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import Foundation
 
 protocol HomeEventsViewModelProtocol: HomeEventsViewInput {
     var getEventsUseCase: GetEventsUseCaseProtocol { get }
+    var filterEventsUseCase: FilterEventsUseCase { get }
     var router: HomeEventsRouterProtocol { get }
     var view: HomeEventsViewProtocol? { get }
 
@@ -19,19 +20,19 @@ protocol HomeEventsViewModelProtocol: HomeEventsViewInput {
 final class HomeEventsViewModel: HomeEventsViewModelProtocol {
     // MARK: - View Inputs
 
-    var events: [Event] = []
-    var groupedEvents: [EventSection] {
-        events.toArrayGouped(by: [.day, .month, .year])
-    }
+    private var events: [Event] = []
+    var groupedEvents: [EventSection] = []
 
     // MARK: - Dependency Injection
 
     var getEventsUseCase: GetEventsUseCaseProtocol
+    var filterEventsUseCase: FilterEventsUseCase
     var router: HomeEventsRouterProtocol
     weak var view: HomeEventsViewProtocol?
 
-    init(getEventsUseCase: GetEventsUseCaseProtocol, router: HomeEventsRouterProtocol) {
+    init(getEventsUseCase: GetEventsUseCaseProtocol, filterEventsUseCase: FilterEventsUseCase, router: HomeEventsRouterProtocol) {
         self.getEventsUseCase = getEventsUseCase
+        self.filterEventsUseCase = filterEventsUseCase
         self.router = router
     }
 
@@ -51,6 +52,7 @@ final class HomeEventsViewModel: HomeEventsViewModelProtocol {
 
     private func getEvents() async throws {
         events = try await getEventsUseCase.getEvents()
+        groupedEvents = filterEventsUseCase.filter(events: events)
     }
 
     func select(event: Event) {

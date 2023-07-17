@@ -2,17 +2,17 @@
 //  EventSection.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import Foundation
 
-struct EventSection {
+struct EventSection: Equatable {
     let dayDate: Date
-    var events: [EventWithConflicts]
+    var events: [EventWithConflict]
 }
 
-struct EventWithConflicts {
+struct EventWithConflict: Equatable {
     let event: Event
-    let conflictsEvents: [Event]
+    let conflictEvent: Event?
 }

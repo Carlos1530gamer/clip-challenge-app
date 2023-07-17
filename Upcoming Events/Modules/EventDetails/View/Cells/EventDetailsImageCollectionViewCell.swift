@@ -2,13 +2,13 @@
 //  EventDetailsImageCollectionViewCell.swift
 //  Upcoming Events
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import UIKit
 
 final class EventDetailsImageCollectionViewCell: UICollectionViewCell {
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill

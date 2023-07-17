@@ -2,7 +2,7 @@
 //  EventImagesRepositoryTests.swift
 //  Upcoming EventsTests
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 @testable import Upcoming_Events
@@ -10,9 +10,9 @@
 import XCTest
 
 final class EventImagesRepositoryTests: XCTestCase {
-    var fileManager = FileManager()
-    var sut: EventImagesFileManagerRepositoryImpl!
-    var event: Event?
+    private var fileManager = FileManager()
+    private var sut: EventImagesFileManagerRepositoryImpl!
+    private var event: Event?
 
     override func setUpWithError() throws {
         continueAfterFailure = false

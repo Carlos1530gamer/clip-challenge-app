@@ -2,7 +2,7 @@
 //  EventsRepositoryMock.swift
 //  Upcoming EventsTests
 //
-//  Created by Carlos Daniel Hernandez Chauteco on 14/07/23.
+//  Created by Carlos Daniel Hernandez Chauteco.
 //
 
 import Foundation
@@ -13,6 +13,10 @@ final class EventsRepositoryMock: EventsRepositoryProtocol {
         [
             .init(title: "title 1",
                   comments: "commnets 1",
+                  startDate: Date(timeIntervalSince1970: 1541872800),
+                  endDate: Date(timeIntervalSince1970: 1541876400)),
+            .init(title: "title 2",
+                  comments: "commnets 2",
                   startDate: Date(timeIntervalSince1970: 1541872800),
                   endDate: Date(timeIntervalSince1970: 1541876400))
         ]
