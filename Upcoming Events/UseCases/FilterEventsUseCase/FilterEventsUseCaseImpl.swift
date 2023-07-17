@@ -19,7 +19,7 @@ final class FilterEventsUseCaseImpl: FilterEventsUseCase {
             if var lastSection = sections.last { // Get the last section
                 if let lastEventOfSection = lastSection.events.last { // Get the last event of the last section to compare
                     if lastSection.dayDate == eventExtractDate { // Are in the same group
-                        if event.startDate <= lastEventOfSection.event.endDate { // Have Conflicts
+                        if event.startDate < lastEventOfSection.event.endDate { // Have Conflicts
                             lastSection.events.append(.init(event: event,
                                                             conflictEvent: lastEventOfSection.event))
                         } else { // No Conflicts
