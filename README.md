@@ -1,4 +1,4 @@
-# iOS Clip Demo App
+# iOS Clip Challenge App
 
  Documentation for iOS Cip Code Challenge
 
